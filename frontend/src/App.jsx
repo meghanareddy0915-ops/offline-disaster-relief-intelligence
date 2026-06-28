@@ -1,12 +1,12 @@
 import Navbar from "./components/Navbar";
-import Home from "./pages/Home";
+import Upload from "./pages/Upload";
 
 function App() {
   return (
-    <div>
+    <>
       <Navbar />
-      <Home />
-    </div>
+      <Upload />
+    </>
   );
 }
 
