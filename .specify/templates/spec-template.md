@@ -1,21 +1,22 @@
 ﻿# Spec Template
 
 ## Feature Name
-Name of feature
+Name of the feature
 
-## Description
-Describe what this feature does
+## Problem Statement
+What problem this feature solves
 
 ## Inputs
-- Input data or files
+- Input data or user actions
 
 ## Outputs
-- Expected results
+- Expected results or outputs
 
-## Process Flow
-1. Step one
-2. Step two
-3. Step three
+## Workflow
+1. Step 1
+2. Step 2
+3. Step 3
 
-## Validation
-Rules for correctness
+## Validation Rules
+- Rule 1
+- Rule 2
