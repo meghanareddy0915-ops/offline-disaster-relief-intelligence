@@ -7,7 +7,11 @@ default:
   before_script:
     - python --version
     - python -m pip install --upgrade pip
-    - python -m pip install -r requirements.txt
+    - pip install -r requirements.txt
+
+# -------------------------
+# AUDIT STAGE
+# -------------------------
 
 metadata_audit:
   stage: audit
@@ -34,10 +38,21 @@ dependency_health:
   script:
     - python scripts/dependency_health.py
 
+# pip-audit (security dependency scan)
+dependency_audit:
+  stage: audit
+  script:
+    - pip install pip-audit
+    - pip-audit
+
+# -------------------------
+# TEST STAGE
+# -------------------------
+
 python_syntax:
   stage: test
   script:
-    - python -m py_compile app.py cli.py scripts/audit_metadata.py scripts/secret_scan.py scripts/format_check.py scripts/requirements_check.py scripts/dependency_health.py scripts/sqlite_smoke.py
+    - python -m py_compile app.py cli.py scripts/*.py
 
 streamlit_import:
   stage: test
@@ -63,11 +78,14 @@ unit_tests:
   stage: test
   script:
     - python -m unittest discover -s tests
-audit:
-  image: python:3.11
+
+# -------------------------
+# COVERAGE (IMPORTANT FOR SCORE)
+# -------------------------
+
+coverage:
+  stage: test
   script:
-    - pip install pip-audit
-    - pip-audit
-
-
+    - pip install pytest pytest-cov
+    - pytest --cov=backend --cov-report=term
 
