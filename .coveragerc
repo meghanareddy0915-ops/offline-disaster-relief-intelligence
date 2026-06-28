@@ -1,0 +1,6 @@
+[run]
+omit =
+    backend/app.py
+
+[report]
+show_missing = True
