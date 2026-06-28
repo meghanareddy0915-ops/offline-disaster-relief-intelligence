@@ -1,18 +1,18 @@
-﻿Feature Name: Spec Template
+﻿## Feature Template
 
-Description: Standard template for defining features
+### Feature
+Name of feature
 
-Inputs:
+### Description
+What this feature does
+
+### Input
 - input data
 
-Outputs:
-- processed result
+### Output
+- expected output
 
-Flow:
-1. Receive input
-2. Process data
-3. Return output
-
-Validation:
-- Must be deterministic
-- Must handle invalid input
+### Acceptance Criteria
+- must work offline
+- must handle errors
+- must be testable

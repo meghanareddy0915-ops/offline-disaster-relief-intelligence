@@ -1,18 +1,20 @@
-﻿Feature Name: File Upload
+﻿## Feature: File Upload
 
-Description: Handles file uploads for disaster system
+### Description
+Handles file uploads safely
 
-Inputs:
+### Input
 - user file
 
-Outputs:
-- validated file
+### Output
+- validated upload status
 
-Flow:
+### Flow
 1. Upload file
-2. Check format
-3. Accept or reject
+2. Validate format
+3. Accept/reject
 
-Validation:
-- Only allowed formats
-- Must reject empty files
+### Acceptance Criteria
+- reject invalid files
+- support multiple formats
+- prevent empty uploads
