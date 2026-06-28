@@ -1,5 +1,8 @@
-def test_sample():
-    assert 2 + 2 == 4
+﻿from backend import app
+from backend import processor
 
+def test_app_loads():
+    assert True
 
-
+def test_processor_loads():
+    assert True
