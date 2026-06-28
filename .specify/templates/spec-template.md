@@ -1,6 +1,6 @@
-﻿Feature Name: Generic Feature
+﻿Feature Name: Spec Template
 
-Description: Template for defining system features
+Description: Standard template for defining features
 
 Inputs:
 - input data
@@ -12,3 +12,7 @@ Flow:
 1. Receive input
 2. Process data
 3. Return output
+
+Validation:
+- Must be deterministic
+- Must handle invalid input

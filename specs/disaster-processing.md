@@ -3,13 +3,17 @@
 Description: Processes disaster reports into structured insights
 
 Inputs:
-- txt, csv, json
+- text, csv, json, images
 
 Outputs:
-- structured summary
+- structured disaster insights
 
 Flow:
 1. Upload file
-2. Validate input
-3. Extract insights
-4. Return output
+2. Validate format
+3. Extract data
+4. Generate insights
+
+Validation:
+- Must support offline execution
+- Must handle corrupted input
