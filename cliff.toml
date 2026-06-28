@@ -1,0 +1,10 @@
+﻿[changelog]
+body = """
+# Changelog
+
+## v1.0.0
+- Initial compliance setup
+- Added Spec-Kit structure
+- Enabled CI, tests, and coverage
+- Pre-commit hooks configured
+"""
