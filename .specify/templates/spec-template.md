@@ -1,22 +1,21 @@
-﻿# Feature Spec Template
+﻿# Spec Template
 
-## Title
-Feature name
+## Feature Name
+Name of feature
 
-## Overview
-Short description of the feature
-
-## Requirements
-- Requirement 1
-- Requirement 2
+## Description
+Describe what this feature does
 
 ## Inputs
-User input description
+- Input data or files
 
 ## Outputs
-Expected output
+- Expected results
 
-## Acceptance Criteria
-- Works offline
-- Handles invalid input safely
-- Fully documented
+## Process Flow
+1. Step one
+2. Step two
+3. Step three
+
+## Validation
+Rules for correctness

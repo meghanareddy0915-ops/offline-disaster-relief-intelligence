@@ -1,20 +1,25 @@
-﻿# File Upload Feature
+﻿# File Upload & Processing Feature
 
-## Overview
-Allows users to upload disaster reports for processing.
+## Description
+Handles uploading disaster reports and processing them into structured insights
 
-## Requirements
-- Support txt, csv, json, jpg, png
-- Must work offline
-- Validate uploaded files
+## Inputs
+- txt files
+- csv files
+- json files
+- images
 
-## Input
-User uploaded file
+## Outputs
+- Structured disaster insights
+- Processed summaries
 
-## Output
-Processed disaster insights
+## Flow
+1. User uploads file
+2. System validates format
+3. Processor extracts content
+4. Insights generated
+5. Results returned
 
-## Acceptance Criteria
-- File uploads successfully
-- Invalid files handled gracefully
-- Output displayed in Streamlit UI
+## Validation Rules
+- File must not be empty
+- Only allowed formats accepted
