@@ -1,16 +1,49 @@
-# React + Vite
+# Offline Disaster Relief Intelligence
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+CPU-first web MVP for turning unstructured disaster-relief field notes into structured JSON records. The core workflow runs locally in the browser with no cloud APIs.
 
-Currently, two official plugins are available:
+## Phase 2 Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+1. Run `npm install` if dependencies are not present.
+2. Start the app with `npm run dev`.
+3. Open `http://127.0.0.1:5173`.
+4. Paste or upload a text field report.
+5. Click `Extract JSON`.
+6. Switch the network off and refresh after the first load to demonstrate the offline app shell and local cache.
 
-## React Compiler
+## Input Scope
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+The current MVP supports text-like inputs: `.txt`, `.csv`, `.md`, `.json`, pasted OCR text, pasted transcript text, or copied field notes. Image, PDF, audio and video records can be passed through the same flow after OCR/transcription text is available.
 
-## Expanding the ESLint configuration
+## Local AI Runtime Declaration
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Runtime: browser JavaScript on CPU.
+- Model approach: deterministic small local extractor for disaster-response schema mapping.
+- Cloud calls: none.
+- Storage: browser `localStorage` cache with JSON export.
+- Offline support: service worker caches app shell and assets after first load.
+
+## Extracted Schema
+
+Each request is normalized into:
+
+- `id`
+- `sourceFile`
+- `createdAt`
+- `location`
+- `urgency`
+- `needs`
+- `peopleAffected`
+- `contact`
+- `summary`
+- `confidence`
+- `runtime`
+- `latencyMs`
+- `rawText`
+
+## Validation Commands
+
+```bash
+npm run lint
+npm run build
+```

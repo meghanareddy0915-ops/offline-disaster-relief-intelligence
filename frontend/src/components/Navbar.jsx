@@ -1,7 +1,8 @@
 function Navbar() {
   return (
-    <nav style={{ background: "#1976d2", color: "white", padding: "15px" }}>
-      <h2>Offline Disaster Relief Intelligence System</h2>
+    <nav className="navbar">
+      <h2>Offline Disaster Relief Intelligence</h2>
+      <span>CPU-first local AI demo</span>
     </nav>
   );
 }
