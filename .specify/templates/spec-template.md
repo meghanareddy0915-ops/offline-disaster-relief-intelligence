@@ -1,22 +1,14 @@
-﻿# Spec Template
+﻿Feature Name: Generic Feature
 
-## Feature Name
-Name of the feature
+Description: Template for defining system features
 
-## Problem Statement
-What problem this feature solves
+Inputs:
+- input data
 
-## Inputs
-- Input data or user actions
+Outputs:
+- processed result
 
-## Outputs
-- Expected results or outputs
-
-## Workflow
-1. Step 1
-2. Step 2
-3. Step 3
-
-## Validation Rules
-- Rule 1
-- Rule 2
+Flow:
+1. Receive input
+2. Process data
+3. Return output

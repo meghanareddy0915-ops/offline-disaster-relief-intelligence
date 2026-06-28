@@ -1,25 +1,14 @@
-﻿# File Upload & Processing Feature
+﻿Feature Name: File Upload
 
-## Description
-Handles uploading disaster reports and processing them into structured insights
+Description: Handles file upload for disaster system
 
-## Inputs
-- txt files
-- csv files
-- json files
-- images
+Inputs:
+- user files
 
-## Outputs
-- Structured disaster insights
-- Processed summaries
+Outputs:
+- validated upload
 
-## Flow
-1. User uploads file
-2. System validates format
-3. Processor extracts content
-4. Insights generated
-5. Results returned
-
-## Validation Rules
-- File must not be empty
-- Only allowed formats accepted
+Flow:
+1. Upload file
+2. Check format
+3. Accept or reject

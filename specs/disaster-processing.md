@@ -1,26 +1,15 @@
-﻿# Disaster Report Processing Feature
+﻿Feature Name: Disaster Processing
 
-## Description
-Processes uploaded disaster reports and extracts structured insights offline.
+Description: Processes disaster reports into structured insights
 
-## Inputs
-- Text reports
-- CSV data
-- JSON files
-- Images (optional)
+Inputs:
+- txt, csv, json
 
-## Outputs
-- Structured disaster summary
-- Extracted key insights
+Outputs:
+- structured summary
 
-## Steps
-1. User uploads file
-2. System validates format
-3. Processor reads content
-4. Insights generated
-5. Results returned
-
-## Rules
-- File must not be empty
-- Only supported formats allowed
-- Must work offline
+Flow:
+1. Upload file
+2. Validate input
+3. Extract insights
+4. Return output
