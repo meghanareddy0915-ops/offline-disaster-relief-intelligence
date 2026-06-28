@@ -11,6 +11,7 @@ venv/
 # SQLite
 
 *.db
+*.sqlite3
 
 # Environment
 

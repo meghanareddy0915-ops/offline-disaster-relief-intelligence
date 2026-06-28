@@ -1,86 +1,77 @@
-# Offline Disaster Relief Intelligence System
+# Offline Disaster Relief Intelligence
 
-## Overview
+CPU-first Streamlit MVP for converting unstructured disaster-relief field notes into structured JSON records. The whole demo now runs from the repository root through `app.py`.
 
-The Offline Disaster Relief Intelligence System is a CPU-first, offline-first AI application that helps emergency responders process disaster relief requests without requiring an internet connection.
+## Phase 2 Demo
 
-The application accepts unstructured inputs such as text, images, and PDF documents. It extracts important information using OCR and a local language model, converts the information into structured data, and stores it in a local SQLite database for quick retrieval.
+1. Install dependencies:
 
-## Problem Statement
+```bash
+pip install -r requirements.txt
+```
 
-During natural disasters, relief requests arrive in different formats including handwritten notes, scanned forms, and text messages. Organizing these requests manually is time-consuming and can delay rescue operations, especially in areas with poor internet connectivity.
+2. Start the app:
 
-## Solution
+```bash
+streamlit run app.py
+```
 
-This project provides an offline AI-powered solution that automatically extracts important information from disaster requests and converts it into structured records.
+3. Paste or upload a text field report.
+4. Click `Extract JSON`.
+5. Show the structured dataset, SQLite record count, confidence, and latency.
+6. Turn Wi-Fi off and repeat extraction locally to prove the core workflow is offline and CPU-only.
 
-## Features
+## Streamlit Cloud Settings
 
-* Offline-first AI processing
-* CPU-only inference
-* OCR-based text extraction
-* Local Language Model (LLM)
-* Structured JSON generation
-* SQLite database storage
-* Search and filtering of requests
-* Priority classification
+Use these exact values:
 
-## Technology Stack
+```txt
+Repository: meghanareddy0915-ops/offline-disaster-relief-intelligence
+Branch: main
+Main file path: app.py
+```
 
-### Frontend
+The public Streamlit link is only for access. The offline-first proof should be shown locally with `streamlit run app.py`.
 
-* React
-* Vite
+## Input Scope
 
-### Backend
+The MVP supports text-like records: pasted field notes, OCR text, transcripts, `.txt`, `.csv`, `.md`, and `.json` files.
 
-* FastAPI
+## Local Runtime Declaration
 
-### OCR
+- App runtime: Streamlit
+- Processing: local deterministic CPU extraction
+- Cloud AI APIs: none
+- Storage: local SQLite database, `disaster_relief.db`
+- Output: structured JSON and downloadable JSON export
 
-* Tesseract OCR
+## Extracted Schema
 
-### Local AI
+- `id`
+- `sourceFile`
+- `createdAt`
+- `location`
+- `urgency`
+- `needs`
+- `peopleAffected`
+- `contact`
+- `summary`
+- `confidence`
+- `runtime`
+- `latencyMs`
+- `rawText`
 
-* llama.cpp
-* Gemma 3 1B GGUF (or TinyLlama)
+## Example Input
 
-### Database
+```txt
+SOS: 52 people near Lake Road School need drinking water, food, blankets and medical help. Two children injured. Contact +91 90000 11111.
+```
 
-* SQLite
+## Validation
 
-## Project Workflow
-
-1. Upload Text, Image or PDF.
-2. Extract text using OCR.
-3. Process the extracted text using a local AI model.
-4. Convert the information into structured JSON.
-5. Store the structured data in SQLite.
-6. Display searchable disaster requests.
-
-## Team Members
-
-### Member 1
-
-* Documentation
-* Frontend Development
-* UI Design
-* Testing
-
-### Member 2
-
-* Backend Development
-* OCR Integration
-* Local AI Integration
-* Database Management
-
-## Future Enhancements
-
-* Voice input support
-* Offline map integration
-* Multi-language support
-* Mobile application
-* Disaster analytics dashboard
+```bash
+python -m py_compile app.py
+```
 
 ## License
 
