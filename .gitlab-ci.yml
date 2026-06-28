@@ -1,0 +1,65 @@
+stages:
+  - audit
+  - test
+
+default:
+  image: python:3.11-slim
+  before_script:
+    - python --version
+    - python -m pip install --upgrade pip
+    - python -m pip install -r requirements.txt
+
+metadata_audit:
+  stage: audit
+  script:
+    - python scripts/audit_metadata.py
+
+secret_scan:
+  stage: audit
+  script:
+    - python scripts/secret_scan.py
+
+format_check:
+  stage: audit
+  script:
+    - python scripts/format_check.py
+
+requirements_check:
+  stage: audit
+  script:
+    - python scripts/requirements_check.py
+
+dependency_health:
+  stage: audit
+  script:
+    - python scripts/dependency_health.py
+
+python_syntax:
+  stage: test
+  script:
+    - python -m py_compile app.py cli.py scripts/audit_metadata.py scripts/secret_scan.py scripts/format_check.py scripts/requirements_check.py scripts/dependency_health.py scripts/sqlite_smoke.py
+
+streamlit_import:
+  stage: test
+  script:
+    - python -c "import streamlit; print(streamlit.__version__)"
+
+cli_help:
+  stage: test
+  script:
+    - python cli.py --help
+
+cli_extract_json:
+  stage: test
+  script:
+    - python scripts/cli_smoke.py
+
+sqlite_storage:
+  stage: test
+  script:
+    - python scripts/sqlite_smoke.py
+
+unit_tests:
+  stage: test
+  script:
+    - python -m unittest discover -s tests

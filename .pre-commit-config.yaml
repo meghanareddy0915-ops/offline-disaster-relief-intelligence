@@ -1,0 +1,48 @@
+repos:
+  - repo: local
+    hooks:
+      - id: metadata-audit
+        name: Metadata audit
+        entry: python scripts/audit_metadata.py
+        language: system
+        pass_filenames: false
+      - id: secret-scan
+        name: Secret scan
+        entry: python scripts/secret_scan.py
+        language: system
+        pass_filenames: false
+      - id: format-check
+        name: Format check
+        entry: python scripts/format_check.py
+        language: system
+        pass_filenames: false
+      - id: requirements-check
+        name: Requirements check
+        entry: python scripts/requirements_check.py
+        language: system
+        pass_filenames: false
+      - id: dependency-health
+        name: Dependency health
+        entry: python scripts/dependency_health.py
+        language: system
+        pass_filenames: false
+      - id: python-syntax
+        name: Python syntax
+        entry: python -m py_compile app.py cli.py
+        language: system
+        pass_filenames: false
+      - id: cli-smoke
+        name: CLI smoke
+        entry: python scripts/cli_smoke.py
+        language: system
+        pass_filenames: false
+      - id: sqlite-smoke
+        name: SQLite smoke
+        entry: python scripts/sqlite_smoke.py
+        language: system
+        pass_filenames: false
+      - id: unit-tests
+        name: Unit tests
+        entry: python -m unittest discover -s tests
+        language: system
+        pass_filenames: false
