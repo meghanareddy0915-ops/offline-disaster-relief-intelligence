@@ -1,62 +1,33 @@
 repos:
-  - repo: local
+  - repo: https://github.com/PyCQA/flake8
+    rev: 7.3.0
     hooks:
-      - id: metadata-audit
-        name: Metadata audit
-        entry: python scripts/audit_metadata.py
-        language: system
-        pass_filenames: false
+      - id: flake8
 
-      - id: secret-scan
-        name: Secret scan
-        entry: python scripts/secret_scan.py
-        language: system
-        pass_filenames: false
-
-      - id: format-check
-        name: Format check
-        entry: python scripts/format_check.py
-        language: system
-        pass_filenames: false
-
-      - id: requirements-check
-        name: Requirements check
-        entry: python scripts/requirements_check.py
-        language: system
-        pass_filenames: false
-
-      - id: dependency-health
-        name: Dependency health
-        entry: python scripts/dependency_health.py
-        language: system
-        pass_filenames: false
-
-      - id: python-syntax
-        name: Python syntax
-        entry: python -m py_compile app.py cli.py
-        language: system
-        pass_filenames: false
-
-      - id: cli-smoke
-        name: CLI smoke
-        entry: python scripts/cli_smoke.py
-        language: system
-        pass_filenames: false
-
-      - id: sqlite-smoke
-        name: SQLite smoke
-        entry: python scripts/sqlite_smoke.py
-        language: system
-        pass_filenames: false
-
-      - id: unit-tests
-        name: Unit tests
-        entry: python -m unittest discover -s tests
-        language: system
-        pass_filenames: false
-
-  - repo: https://github.com/Yelp/detect-secrets
-    rev: v1.5.0
+  - repo: https://github.com/PyCQA/pylint
+    rev: v3.3.8
     hooks:
-      - id: detect-secrets
+      - id: pylint
+        args: ["--disable=C0114,C0115,C0116"]
 
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.8.6
+    hooks:
+      - id: bandit
+        args: ["-r", "."]
+
+  - repo: https://github.com/jendrikseipp/vulture
+    rev: v2.14
+    hooks:
+      - id: vulture
+
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v3.20.0
+    hooks:
+      - id: pyupgrade
+        args: ["--py311-plus"]
+
+  - repo: https://github.com/semgrep/pre-commit
+    rev: v1.130.0
+    hooks:
+      - id: semgrep
