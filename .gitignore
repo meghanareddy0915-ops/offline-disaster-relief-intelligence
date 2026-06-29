@@ -18,6 +18,12 @@ venv/
 
 .env
 
+# Local GitLab Runner
+
+gitlab-runner.exe
+config.toml
+.runner_system_id
+
 # Logs
 
 *.log
