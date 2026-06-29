@@ -1,7 +1,10 @@
 stages:
   - audit
-  - quality
+  - format
+  - lint
+  - type_check
   - test
+  - coverage
 
 default:
   image: python:3.11-slim
@@ -24,11 +27,6 @@ secret_scan:
   script:
     - python scripts/secret_scan.py
 
-format_check:
-  stage: audit
-  script:
-    - python scripts/format_check.py
-
 requirements_check:
   stage: audit
   script:
@@ -39,7 +37,6 @@ dependency_health:
   script:
     - python scripts/dependency_health.py
 
-# pip-audit (security dependency scan)
 dependency_audit:
   stage: audit
   script:
@@ -47,45 +44,80 @@ dependency_audit:
     - pip-audit
 
 # -------------------------
-# QUALITY STAGE
-#--------------------------
+# FORMAT STAGE
+# -------------------------
 
-vulture:
-  stage: quality
+format_check:
+  stage: format
   script:
-    - pip install vulture
-    - vulture .
+    - python scripts/format_check.py
 
-bandit:
-  stage: quality
+ruff_format:
+  stage: format
   script:
-    - pip install bandit
-    - bandit -r .
+    - pip install ruff
+    - ruff format --check .
+
+pyupgrade:
+  stage: format
+  script:
+    - pip install pyupgrade
+    - pyupgrade --py311-plus $(git ls-files "*.py")
+
+# -------------------------
+# LINT STAGE
+# -------------------------
+
+ruff_lint:
+  stage: lint
+  script:
+    - pip install ruff
+    - ruff check .
 
 flake8:
-  stage: quality
+  stage: lint
   script:
     - pip install flake8
     - flake8 .
 
 pylint:
-  stage: quality
+  stage: lint
   script:
     - pip install pylint
     - pylint backend
 
-pyupgrade:
-  stage: quality
+vulture:
+  stage: lint
   script:
-    - pip install pyupgrade
-    - pyupgrade --py311-plus $(git ls-files "*.py")
+    - pip install vulture
+    - vulture .
+
+# -------------------------
+# TYPE CHECK STAGE
+# -------------------------
+
+mypy:
+  stage: type_check
+  script:
+    - pip install mypy
+    - mypy .
+
+# -------------------------
+# SECURITY ANALYSIS
+# -------------------------
+
+bandit:
+  stage: lint
+  script:
+    - pip install bandit
+    - bandit -r .
 
 semgrep:
-  stage: quality
+  stage: lint
   script:
     - pip install semgrep
     - semgrep scan
-    
+
 # -------------------------
 # TEST STAGE
 # -------------------------
@@ -121,14 +153,11 @@ unit_tests:
     - python -m unittest discover -s tests
 
 # -------------------------
-# COVERAGE (IMPORTANT FOR SCORE)
+# COVERAGE STAGE
 # -------------------------
 
 coverage:
-  stage: test
+  stage: coverage
   script:
     - pip install pytest pytest-cov
-    - pytest --cov=backend --cov-report=term
-
-
-
+    - pytest --cov=backend --cov-report=xml --cov-report=term --cov-fail-under=80
