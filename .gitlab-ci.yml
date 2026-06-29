@@ -1,5 +1,6 @@
 stages:
   - audit
+  - quality
   - test
 
 default:
@@ -45,6 +46,46 @@ dependency_audit:
     - pip install pip-audit
     - pip-audit
 
+# -------------------------
+# QUALITY STAGE
+#--------------------------
+
+vulture:
+  stage: quality
+  script:
+    - pip install vulture
+    - vulture .
+
+bandit:
+  stage: quality
+  script:
+    - pip install bandit
+    - bandit -r .
+
+flake8:
+  stage: quality
+  script:
+    - pip install flake8
+    - flake8 .
+
+pylint:
+  stage: quality
+  script:
+    - pip install pylint
+    - pylint backend
+
+pyupgrade:
+  stage: quality
+  script:
+    - pip install pyupgrade
+    - pyupgrade --py311-plus $(git ls-files "*.py")
+
+semgrep:
+  stage: quality
+  script:
+    - pip install semgrep
+    - semgrep scan
+    
 # -------------------------
 # TEST STAGE
 # -------------------------
