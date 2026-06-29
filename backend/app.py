@@ -8,7 +8,6 @@ from pathlib import Path
 
 import streamlit as st
 
-
 DB_PATH = Path("relief_records.sqlite3")
 
 SUPPLY_KEYWORDS = {
@@ -94,7 +93,9 @@ def find_location(text):
     for pattern in patterns:
         for match in re.findall(pattern, text, flags=re.I):
             location = re.sub(r"\s+", " ", match).strip()
-            if len(location) > 2 and not re.search(r"\b(help|water|food|urgent)\b", location, flags=re.I):
+            if len(location) > 2 and not re.search(
+                r"\b(help|water|food|urgent)\b", location, flags=re.I
+            ):
                 return location
     return ""
 
@@ -122,7 +123,11 @@ def find_urgency(text):
 
 
 def build_summary(record):
-    people = f"{record['peopleAffected']} people" if record["peopleAffected"] else "affected residents"
+    people = (
+        f"{record['peopleAffected']} people"
+        if record["peopleAffected"]
+        else "affected residents"
+    )
     place = f" near {record['location']}" if record["location"] else ""
     needs = ", ".join(record["needs"]) if record["needs"] else "general relief"
     return f"{people}{place} need {needs}."
@@ -251,7 +256,9 @@ st.markdown(
 init_db()
 
 st.title("Offline Disaster Relief Intelligence")
-st.caption("CPU-first Streamlit MVP: unstructured field notes to structured local records.")
+st.caption(
+    "CPU-first Streamlit MVP: unstructured field notes to structured local records."
+)
 
 left, right = st.columns([0.95, 1.05], gap="large")
 
@@ -275,7 +282,9 @@ with left:
     )
 
     col_a, col_b = st.columns(2)
-    extract_clicked = col_a.button("Extract JSON", type="primary", use_container_width=True)
+    extract_clicked = col_a.button(
+        "Extract JSON", type="primary", use_container_width=True
+    )
     clear_clicked = col_b.button("Clear cache", use_container_width=True)
 
     st.markdown(
@@ -303,8 +312,14 @@ if extract_clicked:
 
 records = load_records()
 latest = records[0] if records else None
-high_priority = sum(1 for record in records if record["urgency"] in {"critical", "high"})
-avg_latency = round(sum(record["latencyMs"] for record in records) / len(records)) if records else 0
+high_priority = sum(
+    1 for record in records if record["urgency"] in {"critical", "high"}
+)
+avg_latency = (
+    round(sum(record["latencyMs"] for record in records) / len(records))
+    if records
+    else 0
+)
 
 with right:
     st.subheader("Structured output")
@@ -328,7 +343,9 @@ with right:
             use_container_width=True,
         )
     else:
-        st.info("No records yet. Process a field note to create the first structured JSON record.")
+        st.info(
+            "No records yet. Process a field note to create the first structured JSON record."
+        )
 
 st.markdown(
     """

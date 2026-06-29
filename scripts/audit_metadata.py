@@ -1,6 +1,5 @@
 from pathlib import Path
 
-
 REQUIRED_FILES = [
     "README.md",
     "LICENSE",
@@ -25,12 +24,18 @@ README_TERMS = [
 def main():
     missing = [path for path in REQUIRED_FILES if not Path(path).exists()]
     if missing:
-        raise SystemExit(f"Missing required metadata/project files: {', '.join(missing)}")
+        raise SystemExit(
+            f"Missing required metadata/project files: {', '.join(missing)}"
+        )
 
     readme = Path("README.md").read_text(encoding="utf-8")
-    missing_terms = [term for term in README_TERMS if term.lower() not in readme.lower()]
+    missing_terms = [
+        term for term in README_TERMS if term.lower() not in readme.lower()
+    ]
     if missing_terms:
-        raise SystemExit(f"README is missing required terms: {', '.join(missing_terms)}")
+        raise SystemExit(
+            f"README is missing required terms: {', '.join(missing_terms)}"
+        )
 
     license_text = Path("LICENSE").read_text(encoding="utf-8", errors="ignore")
     strong_copyleft = [

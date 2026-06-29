@@ -8,7 +8,6 @@ from pathlib import Path
 
 import streamlit as st
 
-
 DB_PATH = Path("disaster_relief.db")
 
 SUPPLY_KEYWORDS = {
@@ -94,7 +93,9 @@ def find_location(text):
     for pattern in patterns:
         for match in re.findall(pattern, text, flags=re.I):
             location = re.sub(r"\s+", " ", match).strip()
-            if len(location) > 2 and not re.search(r"\b(help|water|food|urgent)\b", location, flags=re.I):
+            if len(location) > 2 and not re.search(
+                r"\b(help|water|food|urgent)\b", location, flags=re.I
+            ):
                 return location
     return ""
 
@@ -122,7 +123,11 @@ def find_urgency(text):
 
 
 def build_summary(record):
-    people = f"{record['peopleAffected']} people" if record["peopleAffected"] else "affected residents"
+    people = (
+        f"{record['peopleAffected']} people"
+        if record["peopleAffected"]
+        else "affected residents"
+    )
     place = f" near {record['location']}" if record["location"] else ""
     needs = ", ".join(record["needs"]) if record["needs"] else "general relief"
     return f"{people}{place} need {needs}."
@@ -228,26 +233,36 @@ st.set_page_config(
 init_db()
 
 st.title("Offline Disaster Relief Intelligence")
-st.caption("Whole-project Streamlit MVP: ingestion, local CPU extraction, SQLite storage, JSON export.")
+st.caption(
+    "Whole-project Streamlit MVP: ingestion, local CPU extraction, SQLite storage, JSON export."
+)
 
 left, right = st.columns([0.95, 1.05], gap="large")
 
 with left:
     st.subheader("1. Ingestion")
-    uploaded_file = st.file_uploader("Upload a text-like disaster record", type=["txt", "csv", "md", "json"])
+    uploaded_file = st.file_uploader(
+        "Upload a text-like disaster record", type=["txt", "csv", "md", "json"]
+    )
     source_file = "manual-entry.txt"
     initial_text = SAMPLE_TEXT
     if uploaded_file is not None:
         source_file = uploaded_file.name
         initial_text = uploaded_file.read().decode("utf-8", errors="replace")
 
-    text = st.text_area("Field note, OCR text, or transcript", value=initial_text, height=260)
+    text = st.text_area(
+        "Field note, OCR text, or transcript", value=initial_text, height=260
+    )
 
     col_a, col_b = st.columns(2)
-    extract_clicked = col_a.button("Extract JSON", type="primary", use_container_width=True)
+    extract_clicked = col_a.button(
+        "Extract JSON", type="primary", use_container_width=True
+    )
     clear_clicked = col_b.button("Clear SQLite", use_container_width=True)
 
-    st.info("No external AI APIs. Processing is deterministic local CPU logic with SQLite persistence.")
+    st.info(
+        "No external AI APIs. Processing is deterministic local CPU logic with SQLite persistence."
+    )
 
 if clear_clicked:
     clear_records()
@@ -264,8 +279,14 @@ if extract_clicked:
 
 records = load_records()
 latest = records[0] if records else None
-high_priority = sum(1 for record in records if record["urgency"] in {"critical", "high"})
-avg_latency = round(sum(record["latencyMs"] for record in records) / len(records)) if records else 0
+high_priority = sum(
+    1 for record in records if record["urgency"] in {"critical", "high"}
+)
+avg_latency = (
+    round(sum(record["latencyMs"] for record in records) / len(records))
+    if records
+    else 0
+)
 
 with right:
     st.subheader("2. Structured dataset")
@@ -285,7 +306,9 @@ with right:
             use_container_width=True,
         )
     else:
-        st.info("No records yet. Process one field note to create the first structured row.")
+        st.info(
+            "No records yet. Process one field note to create the first structured row."
+        )
 
 st.divider()
 st.markdown(

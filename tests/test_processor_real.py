@@ -1,4 +1,5 @@
-﻿import backend.processor as processor
+import backend.processor as processor
+
 
 def test_processor_real_execution():
     for name in dir(processor):
@@ -9,6 +10,6 @@ def test_processor_real_execution():
                 obj(None)
             except:
                 try:
-                    obj('')
+                    obj("")
                 except:
                     pass

@@ -1,12 +1,9 @@
-﻿import backend.processor as processor
+import backend.processor as processor
+
 
 def test_processor_real_flow():
     # simulate realistic inputs (not random calls)
-    inputs = [
-        "test text",
-        {"data": "sample"},
-        None
-    ]
+    inputs = ["test text", {"data": "sample"}, None]
 
     for name in dir(processor):
         func = getattr(processor, name)

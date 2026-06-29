@@ -1,6 +1,5 @@
 from pathlib import Path
 
-
 CHECK_SUFFIXES = {".py", ".md", ".txt", ".yml", ".yaml"}
 SKIP_DIRS = {".git", "__pycache__", "node_modules", "dist", "build", ".venv", "venv"}
 CHECK_ROOT_FILES = {

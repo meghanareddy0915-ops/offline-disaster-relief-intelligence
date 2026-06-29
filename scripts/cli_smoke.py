@@ -2,7 +2,6 @@ import json
 import subprocess
 import sys
 
-
 SAMPLE = (
     "SOS: 52 people near Lake Road School need drinking water, food, blankets "
     "and medical help. Contact +91 90000 11111."

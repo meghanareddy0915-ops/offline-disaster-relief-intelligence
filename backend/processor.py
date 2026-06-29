@@ -1,5 +1,6 @@
 import pandas as pd
 
+
 def process_file(uploaded_file):
     file_name = uploaded_file.name
 
@@ -9,6 +10,7 @@ def process_file(uploaded_file):
 
     elif file_name.endswith(".json"):
         import json
+
         data = json.load(uploaded_file)
         return data
 

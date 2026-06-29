@@ -3,7 +3,11 @@ from pathlib import Path
 
 def main():
     requirements = Path("requirements.txt").read_text(encoding="utf-8").splitlines()
-    cleaned = [line.strip() for line in requirements if line.strip() and not line.startswith("#")]
+    cleaned = [
+        line.strip()
+        for line in requirements
+        if line.strip() and not line.startswith("#")
+    ]
 
     if not any(line.startswith("streamlit") for line in cleaned):
         raise SystemExit("requirements.txt must include streamlit")

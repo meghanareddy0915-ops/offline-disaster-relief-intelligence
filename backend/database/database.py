@@ -2,8 +2,10 @@ import sqlite3
 
 DATABASE_NAME = "disaster_relief.db"
 
+
 def get_connection():
     return sqlite3.connect(DATABASE_NAME)
+
 
 def create_table():
     conn = get_connection()

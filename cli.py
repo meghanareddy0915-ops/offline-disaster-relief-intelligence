@@ -7,7 +7,6 @@ import uuid
 from datetime import datetime, timezone
 from pathlib import Path
 
-
 DB_PATH = Path("disaster_relief.db")
 
 SUPPLY_KEYWORDS = {
@@ -87,7 +86,9 @@ def find_location(text):
     for pattern in patterns:
         for match in re.findall(pattern, text, flags=re.I):
             location = re.sub(r"\s+", " ", match).strip()
-            if len(location) > 2 and not re.search(r"\b(help|water|food|urgent)\b", location, flags=re.I):
+            if len(location) > 2 and not re.search(
+                r"\b(help|water|food|urgent)\b", location, flags=re.I
+            ):
                 return location
     return ""
 
@@ -103,9 +104,22 @@ def find_needs(text):
 
 def find_urgency(text):
     lower = text.lower()
-    if any(word in lower for word in ["critical", "sos", "trapped", "life threatening", "immediate", "urgent"]):
+    if any(
+        word in lower
+        for word in [
+            "critical",
+            "sos",
+            "trapped",
+            "life threatening",
+            "immediate",
+            "urgent",
+        ]
+    ):
         return "critical"
-    if any(word in lower for word in ["flood", "injured", "no food", "no water", "evacuate", "medical"]):
+    if any(
+        word in lower
+        for word in ["flood", "injured", "no food", "no water", "evacuate", "medical"]
+    ):
         return "high"
     if "soon" in lower or "within 24" in lower:
         return "medium"
@@ -113,7 +127,11 @@ def find_urgency(text):
 
 
 def build_summary(record):
-    people = f"{record['peopleAffected']} people" if record["peopleAffected"] else "affected residents"
+    people = (
+        f"{record['peopleAffected']} people"
+        if record["peopleAffected"]
+        else "affected residents"
+    )
     place = f" near {record['location']}" if record["location"] else ""
     needs = ", ".join(record["needs"]) if record["needs"] else "general relief"
     return f"{people}{place} need {needs}."
@@ -185,14 +203,18 @@ def read_input(args):
     if args.input:
         path = Path(args.input)
         return path.read_text(encoding="utf-8"), str(path)
-    raise SystemExit("Provide --input path/to/file.txt or --text \"request text\"")
+    raise SystemExit('Provide --input path/to/file.txt or --text "request text"')
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Offline disaster relief JSON extractor")
+    parser = argparse.ArgumentParser(
+        description="Offline disaster relief JSON extractor"
+    )
     parser.add_argument("--input", help="Path to a text-like disaster request file")
     parser.add_argument("--text", help="Inline disaster request text")
-    parser.add_argument("--no-save", action="store_true", help="Print JSON without saving to SQLite")
+    parser.add_argument(
+        "--no-save", action="store_true", help="Print JSON without saving to SQLite"
+    )
     args = parser.parse_args()
 
     text, source_file = read_input(args)
